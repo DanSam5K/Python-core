@@ -11,4 +11,5 @@ def my_func():
 if __name__ == "__main__":
     print("I am runing")
     my_func()
+    print_area()
     
