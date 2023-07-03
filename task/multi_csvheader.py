@@ -14,7 +14,7 @@ def process_csv(filename: str):
     # Read the CSV file and extract the header
     with open(filename, 'r') as file:
         lines = file.readlines()
-        header = lines[0].strip().split(',')
+        header = lines[0].strip().split(', ')
 
     try:
         is_valid_header(header)
@@ -24,6 +24,6 @@ def process_csv(filename: str):
 
 if __name__ == '__main__':
     pool = Pool()
-    pool.apply_async(process_csv, ('large_file.csv',))
+    pool.apply_async(process_csv, ('/workspaces/Python-core/task/large_file.csv'))
     pool.close()
     pool.join()

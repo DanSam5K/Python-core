@@ -14,7 +14,7 @@ async def process_csv(filename: str):
     # Read the CSV file and extract the header
     with open(filename, 'r') as file:
         lines = file.readlines()
-        header = lines[0].strip().split(',')
+        header = lines[0].strip().split(', ')
 
     try:
         await is_valid_header(header)
