@@ -1,7 +1,7 @@
-import asyncio
+from multiprocessing import Pool
 from typing import List
 
-async def is_valid_header(header: List[str]) -> bool:
+def is_valid_header(header: List[str]) -> bool:
     mandatory_columns = ['column1', 'column2', 'column3']  # Example list of mandatory columns
 
     missing_columns = [column for column in mandatory_columns if column not in header]
@@ -10,16 +10,20 @@ async def is_valid_header(header: List[str]) -> bool:
 
     return True
 
-async def process_csv(filename: str):
+def process_csv(filename: str):
     # Read the CSV file and extract the header
     with open(filename, 'r') as file:
         lines = file.readlines()
         header = lines[0].strip().split(',')
 
     try:
-        await is_valid_header(header)
+        is_valid_header(header)
         print("Header is valid.")
     except Exception as e:
         print(f"Header validation failed: {str(e)}")
 
-asyncio.run(process_csv('/workspaces/Python-core/task/large_file.csv'))
+if __name__ == '__main__':
+    pool = Pool()
+    pool.apply_async(process_csv, ('large_file.csv',))
+    pool.close()
+    pool.join()
